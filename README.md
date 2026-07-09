@@ -1,117 +1,30 @@
-# AWS Cloud Security Lab
+# Cloud Attack Surface Analysis of an Internet-Exposed AWS Workload
 
-## Overview
+## What is the project?
 
-This project documents the design and implementation of a production-inspired AWS cloud security lab built entirely with native AWS services.
+This project deploys a minimal, realistic web application on an internet-facing AWS EC2 instance and studies how automated internet traffic — scanners, bots, and brute-force tools — discovers, enumerates, and attacks it. The instance is deliberately configured with a common cloud security misconfiguration (SSH exposed to the public internet alongside HTTP/HTTPS), left publicly accessible for a fixed observation window, and instrumented to capture traffic across the network, OS, web server, application, and AWS control-plane layers. The collected data is then analyzed to reconstruct attacker behavior, build an attack timeline, and map observed techniques to the MITRE ATT&CK framework.
 
-The objective is to gain hands-on experience with AWS networking, identity and access management (IAM), infrastructure security, monitoring, threat detection, and incident response while documenting the engineering process from start to finish.
+The web application itself is not the deliverable — it exists purely as a stimulus to generate authentic attack telemetry. The deliverable is the investigation: the architecture, the data, and the findings.
 
-The lab will begin with a securely configured AWS environment and later introduce intentionally weakened configurations to compare attack surface, telemetry, and AWS-native security findings.
+## Why did I build it?
 
----
+To gain hands-on, practical experience with cloud security engineering rather than studying it theoretically — specifically AWS networking and IAM, security group configuration, Linux system administration, log collection and analysis, and mapping real-world attacker behavior to a recognized threat framework (MITRE ATT&CK). Exposing a deliberately misconfigured instance and observing what actually happens to it produces a more concrete, evidence-based understanding of cloud attack surface risk than reading about best practices alone, and results in a portfolio-quality artifact demonstrating that skill set end to end.
 
-## Project Goals
+## What technologies does it use?
 
-- Build a production-inspired AWS environment from the ground up.
-- Learn AWS networking, IAM, and infrastructure design.
-- Configure AWS-native logging, monitoring, and threat detection.
-- Investigate and analyze security events.
-- Compare secure and intentionally weakened cloud configurations.
-- Document architecture, implementation decisions, and lessons learned.
+**AWS:** VPC, subnets, Internet Gateway, route tables, security groups, EC2, IAM (least-privilege instance role), S3 (durable log storage), CloudTrail (API activity audit), VPC Flow Logs (network-level traffic visibility), and optionally GuardDuty for managed threat detection comparison.
 
----
+**Application stack:** Ubuntu, Apache, PHP, and SQLite, hosting a simple simulated internal web portal (login page, dashboard, admin page, search, downloadable documents, contact form) designed to attract common categories of automated probing.
 
-## Planned AWS Services
+**Analysis:** Python-based log parsing and sanitization scripts, used to process Apache access/error logs, Linux authentication logs, custom application logs, and AWS-native telemetry into a timeline and MITRE ATT&CK mapping.
 
-### Identity & Access Management
-- IAM
-- IAM Roles
+## What will the repository contain?
 
-### Networking
-- VPC
-- Subnets
-- Internet Gateway
-- Route Tables
-- Security Groups
+- Infrastructure-as-code for the network, security groups, IAM roles, and S3 bucket used in the project
+- Source code for the simulated web application
+- Log-shipping and sanitization scripts
+- Sanitized log samples referenced in the analysis
+- Log parsing and analysis scripts
+- The final written report: architecture, attack timeline, MITRE ATT&CK mapping, findings, and remediation recommendations
 
-### Compute
-- EC2
-- Amazon Linux / Ubuntu
-- Systems Manager (later)
-
-### Monitoring & Detection
-- CloudTrail
-- CloudWatch
-- VPC Flow Logs
-- GuardDuty
-- Security Hub
-- Amazon Inspector
-
----
-
-## Project Roadmap
-
-### Phase 0 – Project Setup ✅
-
-- [x] AWS Account
-- [x] Root MFA
-- [x] IAM Administrator User
-- [x] AWS CLI
-- [x] GitHub Repository
-
-### Phase 1 – Networking Foundation 🚧
-
-- [x] Custom VPC
-- [x] Public Subnet
-- [x] Internet Gateway
-- [x] Public Route Table
-- [x] Route Table Association
-- [ ] Security Group
-
-### Phase 2 – Secure Infrastructure
-
-- [ ] Launch secure EC2 instance
-- [ ] Install Nginx
-- [ ] Configure least-privilege Security Group
-- [ ] Configure IAM Role
-
-### Phase 3 – Cloud Security Monitoring
-
-- [ ] CloudTrail
-- [ ] CloudWatch
-- [ ] VPC Flow Logs
-- [ ] GuardDuty
-- [ ] Security Hub
-- [ ] Amazon Inspector
-
-### Phase 4 – Security Experiments
-
-- [ ] Deploy second EC2 instance
-- [ ] Introduce controlled security misconfigurations
-- [ ] Compare secure vs. weakened configurations
-- [ ] Analyze AWS security findings
-
-### Phase 5 – Incident Investigation
-
-- [ ] Investigate alerts
-- [ ] Analyze logs
-- [ ] Document findings
-- [ ] Produce incident reports
-
----
-
-## Repository Structure
-
-```text
-docs/
-diagrams/
-screenshots/
-scripts/
-notes/
-```
-
----
-
-## Current Status
-
-🚧 Currently building the networking and infrastructure layer of the lab before introducing AWS-native monitoring and detection services.
+All account-specific identifiers, IP addresses, and credentials have been removed or replaced with generic placeholders (e.g. `<AWS_ACCOUNT_ID>`, `<ADMIN_IAM_USER>`, `<VPC_NAME>`) throughout every published artifact.
