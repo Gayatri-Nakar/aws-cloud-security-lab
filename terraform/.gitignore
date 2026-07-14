@@ -1,0 +1,34 @@
+# Terraform working directory
+.terraform/
+
+# Terraform state — may contain private keys and sensitive values
+*.tfstate
+*.tfstate.*
+
+# Local variable values
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Generated SSH keys
+*.pem
+*.key
+id_rsa
+id_ed25519
+
+# Terraform crash and override files
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Packaged deployment artifact
+webapp.zip
+
+# OS/editor files
+.DS_Store
+.vscode/
+.idea/
