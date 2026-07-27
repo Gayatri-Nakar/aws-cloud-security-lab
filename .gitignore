@@ -1,0 +1,25 @@
+.redaction_key
+
+# Raw logs - contain real IPs and AWS account ID
+collected-logs/
+collected-logs.zip
+
+# Terraform sensitive files
+*.tfvars
+!*.tfvars.example
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfstate.*
+
+# Scratch files and binaries
+webapp.zip
+empty_versioned_bucket.py
+check_*.py
+list_cross_source.py
+count_sources.py
+
+# Misc
+Volexity*.pdf
+README website.md
+Teraformfiles/

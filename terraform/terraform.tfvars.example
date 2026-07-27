@@ -1,0 +1,12 @@
+# Copy this file to terraform.tfvars and fill in real values.
+# terraform.tfvars should NOT be committed to git if it ever contains
+# anything sensitive -- for this project the main thing to keep private
+# is your chosen bucket name, since S3 bucket names are globally unique
+# and effectively become part of your account's public footprint if
+# guessed. Add terraform.tfvars to .gitignore.
+
+aws_region      = "us-east-1"
+project_name    = "cloud-security-lab"
+log_bucket_name = "REPLACE-WITH-a-globally-unique-bucket-name"
+instance_label  = "misconfigured-01"
+enable_guardduty = true

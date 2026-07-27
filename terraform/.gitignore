@@ -1,0 +1,12 @@
+# Terraform state and cache
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Secrets -- never commit these
+terraform.tfvars
+*.pem
+
+# Packaged artifact (regenerate with package_webapp.sh; don't need to version it)
+webapp.zip
